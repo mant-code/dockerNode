@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  node: 
+    build: .
+    ports:
+      - "4000:4000"
+    networks:
+      - mern
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    networks:
+      - mern
+    volumes:
+      - my_custom_volume:/data/mongokodb
+
+networks:
+  mern:
+    driver: bridge
+  
+volumes:
+  my_custom_volume: 
+    driver: local
